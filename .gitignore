@@ -28,6 +28,7 @@ js/tinymce/plugins/wordcount/plugin.js
 js/tinymce/plugins/codesample/plugin.js
 js/tinymce/themes/inlite/theme.js
 js/tinymce/themes/modern/theme.js
+
 imagemanager
 filemanager
 mcmanager
@@ -39,6 +40,8 @@ mentions
 *.min.js
 *.dev.js
 *.full.js
+!tinymce.full.js
+!tinymce.full.min.js
 *.min.css
 *.dev.less
 skin.less
