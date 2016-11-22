@@ -43,6 +43,8 @@ mentions
 !tinymce.full.js
 !tinymce.full.min.js
 *.min.css
+!content.min.css
+!skin.min.css
 *.dev.less
 skin.less
 skin.ie7.less
