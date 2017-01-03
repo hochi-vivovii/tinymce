@@ -28,10 +28,11 @@ define('tinymce.media.ui.Dialog', [
 			HtmlToData.htmlToData(editor.settings.media_scripts, editor.serializer.serialize(element, {selection: true})) :
 			{};
 	};
+
 	var getSource = function (editor) {
 		var elm = editor.selection.getNode();
 
-		if (elm.getAttribute('data-mce-object')) {
+		if (elm.getAttribute('data-mce-object') || elm.getAttribute('data-ephox-embed-iri')) {
 			return editor.selection.getContent();
 		}
 	};
@@ -63,21 +64,26 @@ define('tinymce.media.ui.Dialog', [
 		editor.selection.select(afterObjects[0]);
 	};
 
+	var handleInsert = function (editor, html) {
+		var beforeObjects = editor.dom.select('img[data-mce-object]');
+
+		editor.insertContent(html);
+		selectPlaceholder(editor, beforeObjects);
+		editor.nodeChanged();
+	};
+
 	var submitForm = function (editor) {
 		return function () {
 			var data = this.toJSON();
 
-			Service.getEmbedHtml(editor, data)
-				.then(function (response) {
-					var beforeObjects = editor.dom.select('img[data-mce-object]');
-					var html = data.embed ? data.embed : response.html;
-
-					editor.insertContent(html);
-
-					selectPlaceholder(editor, beforeObjects);
-					editor.nodeChanged();
-				})
-				.catch(handleError(editor)); // eslint-disable-line
+			if (data.embed) {
+				handleInsert(editor, data.embed);
+			} else {
+				Service.getEmbedHtml(editor, data)
+					.then(function (response) {
+						handleInsert(editor, response.html);
+					})["catch"](handleError(editor));
+			}
 		};
 	};
 
@@ -111,14 +117,16 @@ define('tinymce.media.ui.Dialog', [
 				onpaste: function () {
 					setTimeout(function () {
 						Service.getEmbedHtml(editor, win.toJSON())
-							.then(addEmbedHtml(win, editor))
-							.catch(handleError(editor)); // eslint-disable-line
+							.then(
+								addEmbedHtml(win, editor)
+							)["catch"](handleError(editor));
 					}, 1);
 				},
 				onchange: function (e) {
 					Service.getEmbedHtml(editor, win.toJSON())
-						.then(addEmbedHtml(win, editor))
-						.catch(handleError(editor)); // eslint-disable-line
+						.then(
+							addEmbedHtml(win, editor)
+						)["catch"](handleError(editor));
 
 					populateMeta(win, e.meta);
 				},
