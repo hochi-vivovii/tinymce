@@ -3,7 +3,7 @@ TinyMCE - The JavaScript Rich Text editor
 
 Pre-built 22 Nov 2016
 Build command:
-grunt bundle --themes=modern --plugins=advlist,lists,charmap,hr,visualchars,table,contextmenu,paste,textcolor,colorpicker,textpattern,noneditable,image
+grunt bundle --themes=modern --plugins=advlist,lists,charmap,hr,visualchars,table,contextmenu,paste,textcolor,colorpicker,textpattern,noneditable
 
 
 Building TinyMCE
@@ -33,19 +33,10 @@ $ grunt
 Build tasks
 ------------
 `grunt`
-Lints, minified, unit tests and creates release packages for TinyMCE.
-
-`grunt minify`
-Minifies all JS and CSS files.
+Lints, minifies, unit tests and creates release packages for TinyMCE.
 
 `grunt test`
 Runs all qunit tests on PhantomJS.
-
-`grunt lint`
-Runs all source files through various JS linters.
-
-`grunt watch`
-Watches for source code changes and triggers rebuilds and linting.
 
 `grunt --help`
 Displays the various build tasks.
