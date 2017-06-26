@@ -3,7 +3,7 @@ TinyMCE - The JavaScript Rich Text editor
 
 Pre-built 22 Nov 2016
 Build command:
-grunt bundle --themes=modern --plugins=advlist,lists,charmap,hr,visualchars,table,contextmenu,paste,textcolor,colorpicker,textpattern,noneditable  
+grunt bundle --themes=modern --plugins=advlist,lists,charmap,hr,visualchars,table,contextmenu,paste,textcolor,colorpicker,textpattern,noneditable,image
 
 
 Building TinyMCE
